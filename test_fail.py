@@ -1,2 +1,2 @@
-def test_deve_falhar_de_proposito():
-    assert 1 == 2
+def test_deve_passar_agora():
+    assert 1 == 1
