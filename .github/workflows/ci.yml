@@ -1,28 +1,45 @@
+# Nome do workflow que aparece na aba "Actions" do GitHub
 name: CI
 
+# Quando esse workflow vai rodar
 on:
+  # Roda quando você der push (git push) na branch dev
   push:
     branches: [dev]
+
+  # Roda quando você abrir/atualizar um Pull Request indo para a main
   pull_request:
     branches: [main]
 
+# Lista de "jobs" (trabalhos) que o GitHub Actions vai executar
 jobs:
+  # Nome do job (pode ser qualquer nome). Aqui: "test"
   test:
+    # Define o tipo de máquina (runner) onde isso vai rodar
+    # ubuntu-latest = um Linux padrão da infraestrutura do GitHub
     runs-on: ubuntu-latest
 
+    # "steps" = passos que o runner vai executar em ordem
     steps:
+      # Passo 1: baixar o código do repositório dentro do runner
       - name: Baixar código
         uses: actions/checkout@v4
 
+      # Passo 2: instalar/configurar uma versão do Python no runner
       - name: Instalar Python
         uses: actions/setup-python@v5
         with:
+          # Versão do Python que será usada no CI
           python-version: '3.11'
 
+      # Passo 3: instalar dependências (aqui só o pytest)
+      # Esse bloco "run" executa comandos no shell do runner
       - name: Instalar dependências
         run: |
           pip install pytest
 
+      # Passo 4: rodar os testes
+      # Se o pytest retornar código != 0, o job falha (fica vermelho)
       - name: Rodar testes
         run: |
           pytest
