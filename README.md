@@ -1,2 +1,2 @@
 # ci-pipeline-test
-Teste de push na branch dev.
+Teste de push na branch dev .
